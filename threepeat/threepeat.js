@@ -12,6 +12,7 @@ import Stats from './three/examples/jsm/libs/stats.module.js';
 var w = window;
 w.ll = 10;
 w.fps = 60;
+w.t = 0;
 
 var threecap = new THREEcap();
 
@@ -21,8 +22,10 @@ w.record = function(format, fps, size, reset) {
     var format = format || 'mp4';
     var fps = fps || 60;
     var size = size || 1;
+    var reset = reset || true;
     
     var rec = function() {
+        w.t = 0;
         
         capture.record({
             width: window.innerWidth * size,
@@ -37,8 +40,10 @@ w.record = function(format, fps, size, reset) {
         });
     }
     
-    if(reset) main(w.init, w.update, rec);
-    else rec();
+//    if(reset) main(w.init, w.update, rec);
+//    else rec();
+    
+    rec();
 }
 
 w.r = w.record;
@@ -89,7 +94,8 @@ function threepeat(init, done) {
             
         } else ms = 0;
         
-        update(ms / w.ll / 1000);
+        w.t = ms / w.ll / 1000;
+        update(w.t);
 
         stats.update();
         renderer.render( scene, camera );

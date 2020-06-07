@@ -23,38 +23,35 @@
             
             w.ll = 10; //loop lenth stored in the global window object
             
-            //threepeat() does some repetetive initialization stuff for threejs and threecap, taking our animation scene as a callback
+            //threepeat() abstracts some initialization stuff for threejs and threecap, taking our animation scene as a callback
             
             threepeat((scene, camera, renderer) => {
                 
                 //add mouse camera controls using OrbitControls
                 var orbit = new OrbitControls( camera, renderer.domElement );
                 
-                //setup simple lighting
+                //add simple lighting
                 var ambientLight = new THREE.AmbientLight( 0x000000 );
                 scene.add( ambientLight );
-
                 var lights = [];
                 lights[ 0 ] = new THREE.PointLight( 0xffffff, 0.65, 0 );
                 lights[ 1 ] = new THREE.PointLight( 0xffffff, 0.65, 0 );
                 lights[ 2 ] = new THREE.PointLight( 0xffffff, 0.65, 0 );
-
                 lights[ 0 ].position.set( 0, 400, 0 );
                 lights[ 1 ].position.set( 200, 400, 400 );
                 lights[ 2 ].position.set( - 200, - 400, - 200 );
-
                 scene.add( lights[ 0 ] );
                 scene.add( lights[ 1 ] );
                 scene.add( lights[ 2 ] );
                 
-                //create a simple object
+                //add a teapot mesh
                 var geometry = new TeapotBufferGeometry();
-                var material = new THREE.MeshStandardMaterial( { color: 0x00ff00 } );
+                var material = new THREE.MeshStandardMaterial( { color: 0xffffff } );
                 var cube = new THREE.Mesh( geometry, material );
                 scene.add( cube );
                 camera.position.z = 300;
                 
-                // the function returned by our callback is executed on every frame, with t = loop progress between 0 - 1
+                // the function returned by our callback is executed on every frame, with t = loop progress in the interval [0, 1)
                 return (t) => {
                     cube.rotation.y = (2 * Math.PI) * t;
                 }
