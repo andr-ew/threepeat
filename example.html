@@ -16,6 +16,7 @@
         <script src="./threepeat/threecap/threecap.js"></script>
         <script type="module">
             import { OrbitControls } from './threepeat/three/examples/jsm/controls/OrbitControls.js';
+            import { TeapotBufferGeometry } from './threepeat/three/examples/jsm/geometries/TeapotBufferGeometry.js';
             import { threepeat } from './threepeat/threepeat.js';
             
             var w = window;
@@ -27,14 +28,31 @@
             threepeat((scene, camera, renderer) => {
                 
                 //add mouse camera controls using OrbitControls
-                var orbit = new OrbitControls( camera, renderer.domElement ); 
+                var orbit = new OrbitControls( camera, renderer.domElement );
                 
-                //create a simple cube
-                var geometry = new THREE.BoxGeometry();
-                var material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } );
+                //setup simple lighting
+                var ambientLight = new THREE.AmbientLight( 0x000000 );
+                scene.add( ambientLight );
+
+                var lights = [];
+                lights[ 0 ] = new THREE.PointLight( 0xffffff, 0.65, 0 );
+                lights[ 1 ] = new THREE.PointLight( 0xffffff, 0.65, 0 );
+                lights[ 2 ] = new THREE.PointLight( 0xffffff, 0.65, 0 );
+
+                lights[ 0 ].position.set( 0, 400, 0 );
+                lights[ 1 ].position.set( 200, 400, 400 );
+                lights[ 2 ].position.set( - 200, - 400, - 200 );
+
+                scene.add( lights[ 0 ] );
+                scene.add( lights[ 1 ] );
+                scene.add( lights[ 2 ] );
+                
+                //create a simple object
+                var geometry = new TeapotBufferGeometry();
+                var material = new THREE.MeshStandardMaterial( { color: 0x00ff00 } );
                 var cube = new THREE.Mesh( geometry, material );
                 scene.add( cube );
-                camera.position.z = 5;
+                camera.position.z = 300;
                 
                 // the function returned by our callback is executed on every frame, with t = loop progress between 0 - 1
                 return (t) => {
