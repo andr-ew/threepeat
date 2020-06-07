@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>wrms</title>
+        <style>
+			body { 
+                margin: 0; 
+                color: blue;
+            }
+			canvas { display: block; }
+		</style>
+	</head>
+	<body>
+        <script src="./threepeat/three/build/three.min.js"></script>
+        <script src="./threepeat/threecap/threecap.js"></script>
+        <script type="module">
+            import { OrbitControls } from './threepeat/three/examples/jsm/controls/OrbitControls.js';
+            import { threepeat } from './threepeat/threepeat.js';
+            
+            var w = window;
+            
+            w.ll = 10; //loop lenth stored in the global window object
+            
+            //threepeat() does some repetetive initialization stuff for threejs and threecap, taking our animation scene as a callback
+            
+            threepeat((scene, camera, renderer) => {
+                
+                //add mouse camera controls using OrbitControls
+                var orbit = new OrbitControls( camera, renderer.domElement ); 
+                
+                //create a simple cube
+                var geometry = new THREE.BoxGeometry();
+                var material = new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } );
+                var cube = new THREE.Mesh( geometry, material );
+                scene.add( cube );
+                camera.position.z = 5;
+                
+                // the function returned by our callback is executed on every frame, with t = loop progress between 0 - 1
+                return (t) => {
+                    cube.rotation.y = (2 * Math.PI) * t;
+                }
+            });
+        </script>
+	</body>
+</html>
