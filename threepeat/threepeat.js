@@ -18,11 +18,11 @@ var threecap = new THREEcap();
 
 var scene, camera, renderer, stats, composer, capture;
 
-w.record = function(format, fps, size, reset) {
+var record = function(format, fps, size, reset) {
     var format = format || 'mp4';
     var fps = fps || 60;
     var size = size || 1;
-    var reset = reset || true;
+    var reset = reset || false;
     
     var rec = function() {
         w.t = 0;
@@ -40,16 +40,15 @@ w.record = function(format, fps, size, reset) {
         });
     }
     
-//    if(reset) main(w.init, w.update, rec);
-//    else rec();
-    
-    rec();
+    if(reset) w.reset;
+    else rec();
 }
 
+w.record = record;
 w.r = w.record;
 
-w.init = function() {
-    main(init, update);
+w.reset = function() {
+    threepeat(w.init, w.update);
 }
 
 function threepeat(init, done) {
@@ -120,4 +119,4 @@ function threepeat(init, done) {
     if(done) done();
 }
 
-export { threepeat }
+export { threepeat, record }
