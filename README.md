@@ -1,6 +1,6 @@
 # threepeat
 
-minimal lib for setting up animated loop scenes in [three.js](https://github.com/jbaicoianu/threecap) & recording them as `.mp4`, `.gif`, and more with [threecap](https://github.com/jbaicoianu/threecap)
+minimal lib for sketching out animated loop scenes in [three.js](https://github.com/jbaicoianu/threecap) & recording them as `.mp4`, `.gif`, and more with [threecap](https://github.com/jbaicoianu/threecap)
 
 ![example](example.gif)
 
