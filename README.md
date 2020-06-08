@@ -40,4 +40,4 @@ minimal lib for sketching out animated loop scenes in [three.js](https://github.
      
 (in most cases its best to use a local server to run your script, see [threejs docs](https://threejs.org/docs/index.html#manual/en/introduction/How-to-run-things-locally) for more info)
      
-in the browser console, or elsewhere in your script, use `record(<format>, <framerate>, <size>)` to render a loop of the sscene to your downloads folder
+in the browser console, or elsewhere in your script, use `record(<format>, <framerate>, <size>)` to render a loop of the scene to your downloads folder
